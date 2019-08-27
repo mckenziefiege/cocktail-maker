@@ -1,12 +1,30 @@
-import React from 'react';
+import React, { Component } from 'react';
+import {connect} from 'react-redux'
+import {fetchIngredients} from '../redux/actions'
 import '../App.css';
 
-function App() {
-  return (
-    <div className="App">
-      App component
-    </div>
-  );
+class App extends Component {
+
+  componentDidMount() {
+    this.props.fetchIngredients()
+  }
+
+  render () {
+    console.log(this.props)
+    return (
+      <div className="App">
+        cocktail maker
+      </div>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  ingredients: state.ingredients
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchIngredients: () => dispatch(fetchIngredients())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
